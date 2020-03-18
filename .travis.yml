@@ -25,6 +25,16 @@ deploy:
     region: us-west-2
     acl: public_read
     local_dir: build
-
+  - provider: s3
+    access_key_id: $aws_access_key_id
+    secret_access_key: $aws_secret_access_key
+    bucket: corona-travis-test
+    skip_cleanup: true
+    region: us-west-2
+    acl: public_read
+    local_dir: build
+    on:
+      tags: true
+      
 notifications:
   email: false
