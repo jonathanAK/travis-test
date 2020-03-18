@@ -9,7 +9,7 @@ install:
   - npm install -g travis-ci-cloudfront-invalidation
 
 env:
-  - REACT_APP_ENV_TYPE=$(if ["$TRAVIS_TAG" != ""]; then echo "prod"; else echo "dev"; fi)
+  - REACT_APP_ENV_TYPE=$(if ["$TRAVIS_TAG" != ""]; then echo "dev"; else echo "prod"; fi)
 
 before_deploy:
   - REACT_APP_ENV=prod
@@ -35,6 +35,6 @@ deploy:
     local_dir: build
     on:
       tags: true
-      
+
 notifications:
   email: false
