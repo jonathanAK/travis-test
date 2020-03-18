@@ -20,27 +20,11 @@ deploy:
   - provider: s3
     access_key_id: $aws_access_key_id
     secret_access_key: $aws_secret_access_key
-    bucket: israel-corona-network
+    bucket: corona-travis-test
     skip_cleanup: true
     region: us-west-2
     acl: public_read
     local_dir: build
-    on:
-      tags: true
-  - provider: s3
-    access_key_id: $aws_access_key_id
-    secret_access_key: $aws_secret_access_key
-    bucket: staging-israel-corona-network
-    skip_cleanup: true
-    region: us-west-2
-    acl: public_read
-    local_dir: build
-    on:
-      branch: master
-
-after_deploy:
-  - if [ "$TRAVIS_BRANCH" = "master" ]; then travis-ci-cloudfront-invalidation -a $aws_access_key_id -s $aws_secret_access_key -c $AWS_CLOUDFRONT_STAGING_DIST_ID -i '/*' -b $TRAVIS_BRANCH -p $TRAVIS_PULL_REQUEST; fi
-  - if [ -n "$TRAVIS_TAG" ]; then travis-ci-cloudfront-invalidation -a $aws_access_key_id -s $aws_secret_access_key -c $AWS_CLOUDFRONT_DIST_ID -i '/*' -b $TRAVIS_BRANCH -p $TRAVIS_PULL_REQUEST; fi
 
 notifications:
   email: false
